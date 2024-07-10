@@ -1,6 +1,6 @@
 import livro from "../models/Livros.js"
 
-class LivroControler {
+class LivroController {
     static async listarLivros (req, res) {
         try{
             const listaLivros = await livro.find({})
