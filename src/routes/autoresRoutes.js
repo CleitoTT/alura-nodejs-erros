@@ -3,8 +3,8 @@ import AutorController from "../controllers/autorController.js";
 
 export const routes = express.Router();
 
-routes.get("/livros", LivroControler.listarLivros);
-routes.get("/livros/:id", LivroControler.listarLivroPorId);
-routes.post("/livros", LivroControler.cadastrarLivro);
-routes.put("/livros/:id", LivroControler.atualizarLivro);
-routes.delete("/livros/:id", LivroControler.apagarLivroPorId);
+routes.get("/autores", AutorController.listarAutores);
+routes.get("/autores/:id", AutorController.listarAutorPorId);
+routes.post("/autores", AutorController.cadastrarAutor);
+routes.put("/autores/:id", AutorController.atualizarAutor);
+routes.delete("/autores/:id", AutorController.apagarAutorPorId);
