@@ -1,17 +1,16 @@
-import mongoose from "mongoose";
 import { autor } from "../models/Autor.js"
 
 class AutorController {
-    static async listarAutores (req, res) {
+    static async listarAutores (req, res, next) {
         try{
             const listaAutores = await autor.find({})
             res.status(200).json(listaAutores)
         } catch(erro){
-            res.status(500).json( { message:`${erro.message} - falha na requisição` } )
+          next(erro)
         }
     };
 
-    static async listarAutorPorId (req, res) {
+    static async listarAutorPorId (req, res, next) {
         try{
             const id = req.params.id;
             const autorResultado = await autor.findById(id)
@@ -23,16 +22,11 @@ class AutorController {
             }
 
         } catch(erro){
-          if(erro instanceof mongoose.Error.CastError){
-            res.status(400).send( { message: "Um ou mais dados fornecidos estão incorretos" } )
-          }else{
-            res.status(500).json( { message:`Erro interno do servidor - ${erro.message} ` } )
-          }
-
+          next(erro)
         }
     };
 
-    static cadastrarAutor = async (req, res) => {
+    static cadastrarAutor = async (req, res, next) => {
         try {
           let autor = new autor(req.body);
     
@@ -40,11 +34,11 @@ class AutorController {
     
           res.status(201).send(autorResultado.toJSON());
         } catch (erro) {
-          res.status(500).send({message: `${erro.message} - falha ao cadastrar Autor.`});
+          next(erro)
         }
       };
 
-      static atualizarAutor = async (req, res) => {
+      static atualizarAutor = async (req, res, next) => {
         try {
           const id = req.params.id;
     
@@ -52,11 +46,11 @@ class AutorController {
     
           res.status(200).send({message: "Autor atualizado com sucesso"});
         } catch (erro) {
-          res.status(500).send({message: erro.message});
+          next(erro)
         }
       };
 
-      static excluirAutor = async (req, res) => {
+      static excluirAutor = async (req, res, next) => {
         try {
           const id = req.params.id;
     
@@ -64,7 +58,7 @@ class AutorController {
     
           res.status(200).send({message: "Autor removido com sucesso"});
         } catch (erro) {
-          res.status(500).send({message: erro.message});
+          next(erro)
         }
       };
 }
