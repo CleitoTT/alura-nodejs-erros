@@ -2,14 +2,17 @@ import { autor } from "../models/Autor.js";
 import livro from "../models/Livros.js"
 
 class LivroController {
-    static async listarLivros (req, res) {
-        try{
-            const listaLivros = await livro.find({})
-            res.status(200).json(listaLivros)
-        } catch(erro){
-            res.status(500).json( { message:`${erro.message} - falha na requisição` } )
+    static listarLivros = async (req, res) => {
+        try {
+          const livrosResultado = await livro.find()
+            .populate("autor")
+            .exec();
+    
+          res.status(200).json(livrosResultado);
+        } catch (erro) {
+          res.status(500).json({ message: "Erro interno no servidor", erro });
         }
-    };
+      };
 
     static async listarLivroPorId (req, res) {
         try{

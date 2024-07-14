@@ -7,4 +7,4 @@ autoresRoutes.get("/autores", AutorController.listarAutores);
 autoresRoutes.get("/autores/:id", AutorController.listarAutorPorId);
 autoresRoutes.post("/autores", AutorController.cadastrarAutor);
 autoresRoutes.put("/autores/:id", AutorController.atualizarAutor);
-autoresRoutes.delete("/autores/:id", AutorController.apagarAutorPorId);
+autoresRoutes.delete("/autores/:id", AutorController.excluirAutor);
